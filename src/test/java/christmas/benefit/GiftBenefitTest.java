@@ -21,7 +21,7 @@ public class GiftBenefitTest {
 
         @Test
         @DisplayName("[SUCCESS] 총 주문 금액이 12만원을 넘지 못하면 혜택을 받지 못한다")
-        void should_false_when_isNotMoreThen120000() {
+        void should_failure_when_isNotMoreThen120000() {
             // given
             GiftBenefit giftBenefit = GiftBenefit.of();
             String input = "티본스테이크-1,제로콜라-1";
@@ -42,7 +42,7 @@ public class GiftBenefitTest {
 
         @Test
         @DisplayName("[SUCCESS] 총 주문 금액이 12만원이 넘는다면 혜택을 받는다.")
-        void name() {
+        void should_success_when_isMoreThen120000() {
             // given
             GiftBenefit giftBenefit = GiftBenefit.of();
             String input = "티본스테이크-3,제로콜라-1";
