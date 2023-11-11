@@ -15,6 +15,15 @@ public class OrderDate {
         return new OrderDate(input);
     }
 
+    // utility
+    public boolean isContainChristmasDDay() {
+        return date >= 1 && date <= 25;
+    }
+
+    public long calculateChristmasDDayDiscount() {
+        return 1000 + ((date - 1) * 100);
+    }
+
     // exception handling
     private void validateDate(int date) {
         if (isIncludeDate(date)) {
