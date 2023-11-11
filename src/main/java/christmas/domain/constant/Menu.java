@@ -33,6 +33,10 @@ public enum Menu {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 메뉴입니다."));
     }
 
+    public long calculatePricesPerMenu(int count) {
+        return this.price * count;
+    }
+
     // validation
     private static boolean isExistMenu(String input, String name) {
         return name.equals(input);

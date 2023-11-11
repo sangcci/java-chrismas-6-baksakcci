@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.constant.Menu;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -23,6 +24,18 @@ public class OrderMenu {
             enumMap.put(menu, v);
         });
         return new OrderMenu(enumMap);
+    }
+
+    // utility
+    public long calculateTotalPrice() {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> getCount(menu) != 0)
+                .mapToLong(menu -> menu.calculatePricesPerMenu(getCount(menu)))
+                .sum();
+    }
+
+    private int getCount(Menu menu) {
+        return orderMenuCount.get(menu);
     }
 
     // exception handling
