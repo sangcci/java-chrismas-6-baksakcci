@@ -19,7 +19,7 @@ public class OrderMenu {
         // convert to EnumMap
         EnumMap<Menu, Integer> enumMap = new EnumMap<>(Menu.class);
         input.forEach((k, v) -> {
-            Menu menu = Menu.hasManu(k);
+            Menu menu = Menu.isManuPresent(k);
             enumMap.put(menu, v);
         });
         return new OrderMenu(enumMap);

@@ -26,7 +26,7 @@ public enum Menu {
     }
 
     // utility
-    public static Menu hasManu(String input) {
+    public static Menu isManuPresent(String input) {
         return Arrays.stream(values())
                 .filter(menu -> isExistMenu(input, menu.name))
                 .findFirst()
