@@ -1,18 +1,18 @@
 package christmas.domain.order;
 
-public class Date {
+public class OrderDate {
 
     private int date;
 
     // constructor
-    private Date(int date) {
+    private OrderDate(int date) {
         validateDate(date);
         this.date = date;
     }
 
     // static factory
-    public static Date of(Integer input) {
-        return new Date(input);
+    public static OrderDate of(Integer input) {
+        return new OrderDate(input);
     }
 
     // exception handling

@@ -1,6 +1,6 @@
 package christmas.order;
 
-import christmas.domain.order.Date;
+import christmas.domain.order.OrderDate;
 import christmas.view.input.InputUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class DateTest {
+public class OrderDateTest {
 
     @Nested
     @DisplayName("[parser] 입력 값 파서 테스트")
@@ -45,8 +45,8 @@ public class DateTest {
 
             int dateInput = InputUtil.parseStringToInt(input);
 
-            assertThat(Date.of(dateInput))
-                    .isInstanceOf(Date.class);
+            assertThat(OrderDate.of(dateInput))
+                    .isInstanceOf(OrderDate.class);
         }
 
         @Test
@@ -57,7 +57,7 @@ public class DateTest {
             int dateInput = InputUtil.parseStringToInt(input);
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> Date.of(dateInput))
+                    .isThrownBy(() -> OrderDate.of(dateInput))
                     .withMessageContaining("유효한 날짜 형식이 아닙니다.");
         }
     }
