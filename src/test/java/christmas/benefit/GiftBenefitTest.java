@@ -1,0 +1,62 @@
+package christmas.benefit;
+
+import christmas.domain.benefit.BenefitHistory;
+import christmas.domain.benefit.GiftBenefit;
+import christmas.domain.constant.Benefit;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderPrice;
+import christmas.view.input.InputUtil;
+import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
+
+public class GiftBenefitTest {
+
+    @Nested
+    @DisplayName("[service] 선물 혜택을 받는다")
+    class serviceTest {
+
+        @Test
+        @DisplayName("[SUCCESS] 총 주문 금액이 12만원을 넘지 못하면 혜택을 받지 못한다")
+        void should_false_when_isNotMoreThen120000() {
+            // given
+            GiftBenefit giftBenefit = GiftBenefit.of();
+            String input = "티본스테이크-1,제로콜라-1";
+            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
+            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+            OrderPrice orderPrice = OrderPrice.of(orderMenu);
+            BenefitHistory benefitHistory = BenefitHistory.of();
+
+            // when
+            giftBenefit.present(orderPrice, benefitHistory);
+
+            // then
+            assertThat(giftBenefit.hasChampagne())
+                    .isFalse();
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.GIFT_EVENT))
+                    .isEqualTo(0L);
+        }
+
+        @Test
+        @DisplayName("[SUCCESS] 총 주문 금액이 12만원이 넘는다면 혜택을 받는다.")
+        void name() {
+            // given
+            GiftBenefit giftBenefit = GiftBenefit.of();
+            String input = "티본스테이크-3,제로콜라-1";
+            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
+            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+            OrderPrice orderPrice = OrderPrice.of(orderMenu);
+            BenefitHistory benefitHistory = BenefitHistory.of();
+
+            // when
+            giftBenefit.present(orderPrice, benefitHistory);
+
+            // then
+            assertThat(giftBenefit.hasChampagne())
+                    .isTrue();
+        }
+    }
+}
