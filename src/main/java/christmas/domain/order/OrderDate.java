@@ -1,5 +1,7 @@
 package christmas.domain.order;
 
+import java.util.stream.IntStream;
+
 public class OrderDate {
 
     private int date;
@@ -21,7 +23,16 @@ public class OrderDate {
     }
 
     public long calculateChristmasDDayDiscount() {
-        return 1000 + ((date - 1) * 100);
+        return 1000 + ((date - 1) * 100L);
+    }
+
+    public boolean isWeekend() {
+        return IntStream.of(1, 2, 8, 9, 15, 16, 22, 23, 29, 30)
+                .anyMatch(i -> date == i);
+    }
+
+    public boolean isWeekday() {
+        return !isWeekend();
     }
 
     // exception handling

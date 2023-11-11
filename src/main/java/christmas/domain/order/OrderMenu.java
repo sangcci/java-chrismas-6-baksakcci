@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.constant.Menu;
+import christmas.domain.constant.MenuType;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
@@ -36,6 +37,12 @@ public class OrderMenu {
 
     private int getCount(Menu menu) {
         return orderMenuCount.getOrDefault(menu, 0);
+    }
+
+    public int getMenuCount(MenuType menuType) {
+        return Menu.getManu(menuType).stream()
+                .mapToInt(menu -> orderMenuCount.getOrDefault(menu, 0))
+                .sum();
     }
 
     // exception handling
