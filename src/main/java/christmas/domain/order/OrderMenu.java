@@ -35,7 +35,7 @@ public class OrderMenu {
     }
 
     private int getCount(Menu menu) {
-        return orderMenuCount.get(menu);
+        return orderMenuCount.getOrDefault(menu, 0);
     }
 
     // exception handling
