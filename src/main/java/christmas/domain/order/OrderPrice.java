@@ -6,7 +6,7 @@ public class OrderPrice {
     private long benefitPrice;
 
     // constructor
-    public OrderPrice(long totalPrice) {
+    private OrderPrice(long totalPrice) {
         validateMinimumPrice(totalPrice);
         this.totalPrice = totalPrice;
         this.benefitPrice = 0;
