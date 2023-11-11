@@ -1,27 +1,37 @@
 package christmas.domain.constant;
 
 import java.util.Arrays;
+import java.util.List;
 
 public enum Menu {
 
-    MUSHROOM_SOUP("양송이스프", 6_000L),
-    TAPAS("타파스", 5_500L),
-    CAESAR_SALAD("시저샐러드", 8_000L),
-    T_BONE_STEAK("티본스테이크", 55_000L),
-    BARBECUE_RIBS("바비큐립", 54_000L),
-    SEAFOOD_PASTA("해산물파스타", 35_000L),
-    CHRISTMAS_PASTA("크리스마스파스타", 25_000L),
-    CHOCO_CAKE("초코케이크", 15_000L),
-    ICE_CREAM("아이스크림", 5_000L),
-    ZERO_COLA("제로콜라", 3_000L),
-    RED_WINE("레드와인", 60_000L),
-    CHAMPAGNE("샴페인", 25_000L);
+    // appetizer
+    MUSHROOM_SOUP("양송이스프", MenuType.APPETIZER, 6_000L),
+    TAPAS("타파스", MenuType.APPETIZER, 5_500L),
+    CAESAR_SALAD("시저샐러드", MenuType.APPETIZER,  8_000L),
+
+    // main
+    T_BONE_STEAK("티본스테이크", MenuType.MAIN, 55_000L),
+    BARBECUE_RIBS("바비큐립", MenuType.MAIN, 54_000L),
+    SEAFOOD_PASTA("해산물파스타", MenuType.MAIN, 35_000L),
+    CHRISTMAS_PASTA("크리스마스파스타", MenuType.MAIN, 25_000L),
+
+    // dessert
+    CHOCO_CAKE("초코케이크", MenuType.DESSERT, 15_000L),
+    ICE_CREAM("아이스크림", MenuType.DESSERT, 5_000L),
+
+    // beverage
+    ZERO_COLA("제로콜라", MenuType.BEVERAGE, 3_000L),
+    RED_WINE("레드와인", MenuType.BEVERAGE, 60_000L),
+    CHAMPAGNE("샴페인", MenuType.BEVERAGE, 25_000L);
 
     private String name;
+    private MenuType type;
     private long price;
 
-    Menu(String name, long price) {
+    Menu(String name, MenuType type, long price) {
         this.name = name;
+        this.type = type;
         this.price = price;
     }
 
@@ -35,6 +45,12 @@ public enum Menu {
 
     public long calculatePricesPerMenu(int count) {
         return this.price * count;
+    }
+
+    public static List<Menu> getManu(MenuType menuType) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.type.equals(menuType))
+                .toList();
     }
 
     // validation
