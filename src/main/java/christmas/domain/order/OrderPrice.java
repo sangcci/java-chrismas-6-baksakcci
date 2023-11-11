@@ -1,21 +1,21 @@
 package christmas.domain.order;
 
-public class Price {
+public class OrderPrice {
 
     private long totalPrice;
     private long benefitPrice;
 
     // constructor
-    public Price(long totalPrice) {
+    public OrderPrice(long totalPrice) {
         validateMinimumPrice(totalPrice);
         this.totalPrice = totalPrice;
         this.benefitPrice = 0;
     }
 
     // static factory
-    public static Price of(OrderMenu orderMenu) {
+    public static OrderPrice of(OrderMenu orderMenu) {
         long totalPrice = orderMenu.calculateTotalPrice();
-        return new Price(totalPrice);
+        return new OrderPrice(totalPrice);
     }
 
     // exception handling
@@ -28,5 +28,10 @@ public class Price {
     // validation
     private boolean isLessThan10000(long totalPrice) {
         return totalPrice < 10_000L;
+    }
+
+    // getter
+    public long getTotalPrice() {
+        return totalPrice;
     }
 }
