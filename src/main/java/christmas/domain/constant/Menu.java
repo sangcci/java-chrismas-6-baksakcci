@@ -41,4 +41,9 @@ public enum Menu {
     private static boolean isExistMenu(String input, String name) {
         return name.equals(input);
     }
+
+    // getter
+    public long getPrice() {
+        return this.price;
+    }
 }
