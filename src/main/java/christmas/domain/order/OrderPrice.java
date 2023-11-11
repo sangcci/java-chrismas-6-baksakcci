@@ -18,6 +18,11 @@ public class OrderPrice {
         return new OrderPrice(totalPrice);
     }
 
+    // utility
+    public boolean isMoreThan120_000() {
+        return totalPrice >= 120_000L;
+    }
+
     // exception handling
     private void validateMinimumPrice(long totalPrice) {
         if (isLessThan10000(totalPrice)) {
