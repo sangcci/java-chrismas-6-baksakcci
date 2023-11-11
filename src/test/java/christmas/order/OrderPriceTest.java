@@ -27,5 +27,17 @@ public class OrderPriceTest {
             Assertions.assertThat(OrderPrice.of(orderMenu).getTotalPrice())
                     .isEqualTo(58_000L);
         }
+
+        @Test
+        @DisplayName("[EXCEPTION] 총 주문 금액이 1만원이 넘지 못하면 예외 발생")
+        void should_throwException_when_priceLessThan10000() {
+            String input = "제로콜라-1";
+            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
+            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+
+            Assertions.assertThatIllegalArgumentException()
+                    .isThrownBy(() -> OrderPrice.of(orderMenu))
+                    .withMessageContaining("총 주문 금액이 1만원이 넘지 않습니다.");
+        }
     }
 }
