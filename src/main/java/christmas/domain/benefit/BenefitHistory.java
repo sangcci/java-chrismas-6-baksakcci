@@ -38,4 +38,11 @@ public class BenefitHistory {
     public Long getBenefitDiscountEachPrice(Benefit benefit) {
         return benefitDiscountPrice.get(benefit);
     }
+
+    public long getTotalBenefitPrice() {
+        return benefitDiscountPrice.values().stream()
+                .mapToLong(p -> p)
+                .sum();
+    }
+
 }
