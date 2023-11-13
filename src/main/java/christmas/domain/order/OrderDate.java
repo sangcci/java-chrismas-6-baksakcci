@@ -35,6 +35,11 @@ public class OrderDate {
         return !isWeekend();
     }
 
+    public boolean isStarDay() {
+        return IntStream.of(3, 10, 17, 24, 25, 31)
+                .anyMatch(i -> date == i);
+    }
+
     // exception handling
     private void validateDate(int date) {
         if (isIncludeDate(date)) {
