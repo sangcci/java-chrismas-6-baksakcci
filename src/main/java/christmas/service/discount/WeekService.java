@@ -1,7 +1,7 @@
 package christmas.service.discount;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.constant.DiscountBenefit;
+import christmas.domain.constant.Benefit;
 import christmas.domain.constant.MenuType;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
@@ -32,11 +32,11 @@ public class WeekService {
 
     private void applyWeekendDiscount(OrderMenu orderMenu, BenefitHistory benefitHistory) {
         int mainMenuCount = orderMenu.getMenuCount(MenuType.MAIN);
-        benefitHistory.addDiscountPrice(DiscountBenefit.WEEKEND_DISCOUNT, mainMenuCount * ONE_TIME_DISCOUNT_PRICE);
+        benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, mainMenuCount * ONE_TIME_DISCOUNT_PRICE);
     }
 
     private void applyWeekdayDiscount(OrderMenu orderMenu, BenefitHistory benefitHistory) {
         int dessertMenuCount = orderMenu.getMenuCount(MenuType.DESSERT);
-        benefitHistory.addDiscountPrice(DiscountBenefit.WEEKDAY_DISCOUNT, dessertMenuCount * ONE_TIME_DISCOUNT_PRICE);
+        benefitHistory.addDiscountPrice(Benefit.WEEKDAY_DISCOUNT, dessertMenuCount * ONE_TIME_DISCOUNT_PRICE);
     }
 }
