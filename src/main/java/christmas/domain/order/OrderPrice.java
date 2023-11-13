@@ -3,12 +3,10 @@ package christmas.domain.order;
 public class OrderPrice {
 
     private long totalPrice;
-    private long benefitPrice;
 
     // constructor
     private OrderPrice(long totalPrice) {
         this.totalPrice = totalPrice;
-        this.benefitPrice = 0;
     }
 
     // static factory
