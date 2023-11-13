@@ -1,11 +1,11 @@
 package christmas.controller;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.benefit.ChristmasDDayBenefit;
-import christmas.domain.benefit.EventBadgeBenefit;
-import christmas.domain.benefit.GiftBenefit;
-import christmas.domain.benefit.SpecialBenefit;
-import christmas.domain.benefit.WeekBenefit;
+import christmas.service.discount.ChristmasDDayService;
+import christmas.service.EventBadgeService;
+import christmas.service.GiftService;
+import christmas.service.discount.SpecialService;
+import christmas.service.discount.WeekService;
 import christmas.domain.constant.EventBadge;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
@@ -31,26 +31,26 @@ public class ChristmasPromotionsController {
         BenefitHistory benefitHistory = BenefitHistory.of();
 
         // service
-        GiftBenefit giftBenefit = GiftBenefit.of();
-        giftBenefit.present(orderPrice, benefitHistory);
+        GiftService giftService = GiftService.of();
+        giftService.present(orderPrice, benefitHistory);
 
-        ChristmasDDayBenefit christmasDDayBenefit = ChristmasDDayBenefit.of();
-        christmasDDayBenefit.applyDiscount(orderDate, benefitHistory);
+        ChristmasDDayService christmasDDayService = ChristmasDDayService.of();
+        christmasDDayService.applyDiscount(orderDate, benefitHistory);
 
-        WeekBenefit weekBenefit = WeekBenefit.of();
-        weekBenefit.applyDiscount(orderDate, orderMenu, benefitHistory);
+        WeekService weekService = WeekService.of();
+        weekService.applyDiscount(orderDate, orderMenu, benefitHistory);
 
-        SpecialBenefit specialBenefit = SpecialBenefit.of();
-        specialBenefit.applyDiscount(orderDate, benefitHistory);
+        SpecialService specialService = SpecialService.of();
+        specialService.applyDiscount(orderDate, benefitHistory);
 
-        EventBadgeBenefit eventBadgeBenefit = EventBadgeBenefit.of();
-        EventBadge eventBadge = eventBadgeBenefit.apply(benefitHistory);
+        EventBadgeService eventBadgeService = EventBadgeService.of();
+        EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
 
         // output
         outputView.printTitle();
         outputView.printOrderMenu(orderMenu);
         outputView.printTotalOrderPrice(orderPrice);
-        outputView.printGiftMenu(giftBenefit);
+        outputView.printGiftMenu(benefitHistory);
         outputView.printBenefitHistory(benefitHistory);
         outputView.printTotalBenefitPrice(benefitHistory.getTotalBenefitPrice());
         long totalPriceAfterDiscount = orderPrice.getTotalPrice() - benefitHistory.getTotalDiscountPrice();

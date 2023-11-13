@@ -1,7 +1,7 @@
 package christmas.view.output;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.benefit.GiftBenefit;
+import christmas.service.GiftService;
 import christmas.domain.constant.Benefit;
 import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.Menu;
@@ -32,9 +32,9 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printGiftMenu(GiftBenefit giftBenefit) {
+    public void printGiftMenu(BenefitHistory benefitHistory) {
         System.out.println(OutputMessage.GIFT_MENU.getMessage());
-        if (giftBenefit.hasChampagne()) {
+        if (benefitHistory.getHasChampagne()) {
             System.out.println("샴페인 1개");
         } else {
             System.out.println(Unit.NOTHING.getUnit());

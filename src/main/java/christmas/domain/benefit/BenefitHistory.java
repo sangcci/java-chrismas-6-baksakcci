@@ -1,19 +1,21 @@
 package christmas.domain.benefit;
 
 import christmas.domain.constant.Benefit;
+import christmas.domain.constant.Menu;
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BenefitHistory {
 
     private final Map<Benefit, Long> benefitDiscountPrice;
+    private boolean hasChampagne;
 
     // constructor
     private BenefitHistory(Map<Benefit, Long> benefitDiscountPrice) {
         this.benefitDiscountPrice = benefitDiscountPrice;
+        this.hasChampagne = false;
     }
     
     // static factory
@@ -33,6 +35,11 @@ public class BenefitHistory {
     public void addDiscountPrice(Benefit benefit, long price) {
         Long past = benefitDiscountPrice.get(benefit);
         benefitDiscountPrice.replace(benefit, past + price);
+    }
+
+    public void addGiftChampagne() {
+        addDiscountPrice(Benefit.GIFT_EVENT, Menu.CHAMPAGNE.getPrice());
+        hasChampagne = true;
     }
 
     // getter
@@ -55,5 +62,9 @@ public class BenefitHistory {
 
     public Map<Benefit, Long> getBenefitDiscountPrice() {
         return benefitDiscountPrice;
+    }
+
+    public boolean getHasChampagne() {
+        return hasChampagne;
     }
 }

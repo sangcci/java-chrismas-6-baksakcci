@@ -1,7 +1,6 @@
 package christmas.service;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.benefit.GiftHistory;
 import christmas.domain.order.OrderPrice;
 
 public class GiftService {
@@ -16,8 +15,9 @@ public class GiftService {
     }
 
     // service
-    public void present(OrderPrice orderPrice, BenefitHistory benefitHistory, GiftHistory giftHistory) {
+    public void present(OrderPrice orderPrice, BenefitHistory benefitHistory) {
         if (hasQualificationForGift(orderPrice)) {
+            benefitHistory.addGiftChampagne();
         }
     }
 
