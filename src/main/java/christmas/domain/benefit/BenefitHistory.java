@@ -3,6 +3,7 @@ package christmas.domain.benefit;
 import christmas.domain.constant.Benefit;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class BenefitHistory {
         benefitDiscountPrice.replace(benefit, past + price);
     }
 
-    // getter(test)
+    // getter
     public Long getBenefitDiscountEachPrice(Benefit benefit) {
         return benefitDiscountPrice.get(benefit);
     }
@@ -45,4 +46,14 @@ public class BenefitHistory {
                 .sum();
     }
 
+    public long getTotalDiscountPrice() {
+        return benefitDiscountPrice.keySet().stream()
+                .filter(benefit -> benefit != Benefit.GIFT_EVENT)
+                .mapToLong(benefitDiscountPrice::get)
+                .sum();
+    }
+
+    public Map<Benefit, Long> getBenefitDiscountPrice() {
+        return benefitDiscountPrice;
+    }
 }

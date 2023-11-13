@@ -62,4 +62,8 @@ public enum Menu {
     public long getPrice() {
         return this.price;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

@@ -45,6 +45,12 @@ public class OrderMenu {
                 .sum();
     }
 
+    private int getOrderMenuCountSum(Map<Menu, Integer> orderMenuCount) {
+        return orderMenuCount.values().stream()
+                .mapToInt(i -> i)
+                .sum();
+    }
+
     // exception handling
     private void validateCountLimit(Map<Menu, Integer> orderMenuCount) {
         if (20 < getOrderMenuCountSum(orderMenuCount)) {
@@ -52,9 +58,8 @@ public class OrderMenu {
         };
     }
 
-    private int getOrderMenuCountSum(Map<Menu, Integer> orderMenuCount) {
-        return orderMenuCount.values().stream()
-                .mapToInt(i -> i)
-                .sum();
+    // getter
+    public Map<Menu, Integer> getOrderMenuCount() {
+        return orderMenuCount;
     }
 }

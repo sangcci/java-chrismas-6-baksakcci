@@ -27,4 +27,9 @@ public enum EventBadge {
         }
         return null;
     }
+
+    // getter
+    public String getName() {
+        return name;
+    }
 }
