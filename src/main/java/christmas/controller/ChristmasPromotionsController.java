@@ -50,22 +50,19 @@ public class ChristmasPromotionsController {
         giftService.present(orderPrice, benefitHistory);
 
         discountService.applyChristmasDDayDiscount(orderDate, benefitHistory);
-
         discountService.applyWeekDiscount(orderDate, orderMenu, benefitHistory);
-
         discountService.applySpecialDiscount(orderDate, benefitHistory);
 
         EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
 
         // output
         outputView.printTitle();
-        outputView.printOrderMenu(orderMenu);
-        outputView.printTotalOrderPrice(orderPrice);
-        outputView.printGiftMenu(benefitHistory);
-        outputView.printBenefitHistory(benefitHistory);
-        outputView.printTotalBenefitPrice(benefitHistory.getTotalBenefitPrice());
+        outputView.printBeforeApplyBenefit(orderMenu, orderPrice);
+
         long totalPriceAfterDiscount = orderPrice.getTotalPrice() - benefitHistory.getTotalDiscountPrice();
-        outputView.printTotalPriceAfterDiscount(totalPriceAfterDiscount);
-        outputView.printEventBadge(eventBadge);
+        outputView.printAfterApplyBenefit(benefitHistory,
+                benefitHistory.getTotalBenefitPrice(),
+                totalPriceAfterDiscount,
+                eventBadge);
     }
 }

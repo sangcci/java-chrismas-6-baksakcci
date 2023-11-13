@@ -1,7 +1,6 @@
 package christmas.view.output;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.service.GiftService;
 import christmas.domain.constant.Benefit;
 import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.Menu;
@@ -18,7 +17,12 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printOrderMenu(OrderMenu orderMenu) {
+    public void printBeforeApplyBenefit(OrderMenu orderMenu, OrderPrice orderPrice) {
+        printOrderMenu(orderMenu);
+        printTotalOrderPrice(orderPrice);
+    }
+
+    private void printOrderMenu(OrderMenu orderMenu) {
         System.out.println(OutputMessage.ORDER_MENU.getMessage());
         Map<Menu, Integer> orderMenuCount = orderMenu.getOrderMenuCount();
         orderMenuCount.keySet().stream()
@@ -26,13 +30,24 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalOrderPrice(OrderPrice orderPrice) {
+    private void printTotalOrderPrice(OrderPrice orderPrice) {
         System.out.println(OutputMessage.TOTAL_ORDER_PRICE_BEFORE_DISCOUNT.getMessage());
         System.out.println(orderPrice.getTotalPrice() + Unit.WON.getUnit());
         System.out.println();
     }
 
-    public void printGiftMenu(BenefitHistory benefitHistory) {
+    public void printAfterApplyBenefit(BenefitHistory benefitHistory,
+            long totalBenefitPrice,
+            long totalPriceAfterDiscount,
+            EventBadge eventBadge) {
+        printGiftMenu(benefitHistory);
+        printBenefitHistory(benefitHistory);
+        printTotalBenefitPrice(totalBenefitPrice);
+        printTotalPriceAfterDiscount(totalPriceAfterDiscount);
+        printEventBadge(eventBadge);
+    }
+
+    private void printGiftMenu(BenefitHistory benefitHistory) {
         System.out.println(OutputMessage.GIFT_MENU.getMessage());
         if (benefitHistory.getHasChampagne()) {
             System.out.println("샴페인 1개");
@@ -42,7 +57,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printBenefitHistory(BenefitHistory benefitHistory) {
+    private void printBenefitHistory(BenefitHistory benefitHistory) {
         System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
         Map<Benefit, Long> benefitDiscountPrice = benefitHistory.getBenefitDiscountPrice();
         benefitDiscountPrice.keySet().stream()
@@ -50,19 +65,19 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalBenefitPrice(long price) {
+    private void printTotalBenefitPrice(long price) {
         System.out.println(OutputMessage.TOTAL_BENEFIT_PRICE.getMessage());
         System.out.println(price + "원");
         System.out.println();
     }
 
-    public void printTotalPriceAfterDiscount(long price) {
+    private void printTotalPriceAfterDiscount(long price) {
         System.out.println(OutputMessage.PAYMENT_AFTER_DISCOUNT.getMessage());
         System.out.println(price + "원");
         System.out.println();
     }
 
-    public void printEventBadge(EventBadge eventBadge) {
+    private void printEventBadge(EventBadge eventBadge) {
         System.out.println(OutputMessage.DECEMBER_EVENT_BADGE.getMessage());
         System.out.println(eventBadge.getName());
     }
