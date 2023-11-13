@@ -1,22 +1,23 @@
-package christmas.domain.benefit;
+package christmas.service.discount;
 
-import christmas.domain.constant.Benefit;
+import christmas.domain.benefit.BenefitHistory;
+import christmas.domain.constant.DiscountBenefit;
 import christmas.domain.constant.MenuType;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
 
-public class WeekBenefit {
+public class WeekService {
 
     // constant
     private static final long ONE_TIME_DISCOUNT_PRICE = 2_023L;
 
     // constructor
-    private WeekBenefit() {
+    private WeekService() {
     }
 
     // static factory
-    public static WeekBenefit of() {
-        return new WeekBenefit();
+    public static WeekService of() {
+        return new WeekService();
     }
 
     // service
@@ -31,11 +32,11 @@ public class WeekBenefit {
 
     private void applyWeekendDiscount(OrderMenu orderMenu, BenefitHistory benefitHistory) {
         int mainMenuCount = orderMenu.getMenuCount(MenuType.MAIN);
-        benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, mainMenuCount * ONE_TIME_DISCOUNT_PRICE);
+        benefitHistory.addDiscountPrice(DiscountBenefit.WEEKEND_DISCOUNT, mainMenuCount * ONE_TIME_DISCOUNT_PRICE);
     }
 
     private void applyWeekdayDiscount(OrderMenu orderMenu, BenefitHistory benefitHistory) {
         int dessertMenuCount = orderMenu.getMenuCount(MenuType.DESSERT);
-        benefitHistory.addDiscountPrice(Benefit.WEEKDAY_DISCOUNT, dessertMenuCount * ONE_TIME_DISCOUNT_PRICE);
+        benefitHistory.addDiscountPrice(DiscountBenefit.WEEKDAY_DISCOUNT, dessertMenuCount * ONE_TIME_DISCOUNT_PRICE);
     }
 }

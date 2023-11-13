@@ -3,14 +3,14 @@ package christmas.benefit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.benefit.EventBadgeBenefit;
-import christmas.domain.constant.Benefit;
+import christmas.service.EventBadgeService;
+import christmas.domain.constant.DiscountBenefit;
 import christmas.domain.constant.EventBadge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class EventBadgeBenefitTest {
+public class EventBadgeDiscountBenefitTest {
 
     @Nested
     @DisplayName("[service] 이벤트 뱃지 혜택을 적용한다")
@@ -21,11 +21,11 @@ public class EventBadgeBenefitTest {
         void should_getStarBadge_when_isBetween5000And10000() {
             // given
             BenefitHistory benefitHistory = BenefitHistory.of();
-            benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 5000);
+            benefitHistory.addDiscountPrice(DiscountBenefit.WEEKEND_DISCOUNT, 5000);
 
             // when
-            EventBadgeBenefit eventBadgeBenefit = EventBadgeBenefit.of();
-            EventBadge eventBadge = eventBadgeBenefit.apply(benefitHistory);
+            EventBadgeService eventBadgeService = EventBadgeService.of();
+            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
 
             // then
             assertThat(eventBadge).isEqualTo(EventBadge.STAR);
@@ -36,11 +36,11 @@ public class EventBadgeBenefitTest {
         void should_getTreeBadge_when_isBetween10000And20000() {
             // given
             BenefitHistory benefitHistory = BenefitHistory.of();
-            benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 10000);
+            benefitHistory.addDiscountPrice(DiscountBenefit.WEEKEND_DISCOUNT, 10000);
 
             // when
-            EventBadgeBenefit eventBadgeBenefit = EventBadgeBenefit.of();
-            EventBadge eventBadge = eventBadgeBenefit.apply(benefitHistory);
+            EventBadgeService eventBadgeService = EventBadgeService.of();
+            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
 
             // then
             assertThat(eventBadge).isEqualTo(EventBadge.TREE);
@@ -51,11 +51,11 @@ public class EventBadgeBenefitTest {
         void should_getSantaBadge_when_isMoreThan20000() {
             // given
             BenefitHistory benefitHistory = BenefitHistory.of();
-            benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 20000);
+            benefitHistory.addDiscountPrice(DiscountBenefit.WEEKEND_DISCOUNT, 20000);
 
             // when
-            EventBadgeBenefit eventBadgeBenefit = EventBadgeBenefit.of();
-            EventBadge eventBadge = eventBadgeBenefit.apply(benefitHistory);
+            EventBadgeService eventBadgeService = EventBadgeService.of();
+            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
 
             // then
             assertThat(eventBadge).isEqualTo(EventBadge.SANTA);
@@ -66,11 +66,11 @@ public class EventBadgeBenefitTest {
         void should_null_when_isLessThan5000() {
             // given
             BenefitHistory benefitHistory = BenefitHistory.of();
-            benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 1000);
+            benefitHistory.addDiscountPrice(DiscountBenefit.WEEKEND_DISCOUNT, 1000);
 
             // when
-            EventBadgeBenefit eventBadgeBenefit = EventBadgeBenefit.of();
-            EventBadge eventBadge = eventBadgeBenefit.apply(benefitHistory);
+            EventBadgeService eventBadgeService = EventBadgeService.of();
+            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
 
             // then
             assertThat(eventBadge).isNull();

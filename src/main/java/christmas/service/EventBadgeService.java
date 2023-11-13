@@ -1,16 +1,17 @@
-package christmas.domain.benefit;
+package christmas.service;
 
+import christmas.domain.benefit.BenefitHistory;
 import christmas.domain.constant.EventBadge;
 
-public class EventBadgeBenefit {
+public class EventBadgeService {
 
     // constructor
-    private EventBadgeBenefit() {
+    private EventBadgeService() {
     }
 
     // static factory
-    public static EventBadgeBenefit of() {
-        return new EventBadgeBenefit();
+    public static EventBadgeService of() {
+        return new EventBadgeService();
     }
 
     // service

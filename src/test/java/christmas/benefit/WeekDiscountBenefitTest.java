@@ -1,8 +1,8 @@
 package christmas.benefit;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.benefit.WeekBenefit;
-import christmas.domain.constant.Benefit;
+import christmas.service.discount.WeekService;
+import christmas.domain.constant.DiscountBenefit;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
 import christmas.view.input.InputUtil;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class WeekBenefitTest {
+public class WeekDiscountBenefitTest {
 
     @Nested
     @DisplayName("[service] 일주일 할인 혜택을 적용한다")
@@ -29,11 +29,11 @@ public class WeekBenefitTest {
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
-            WeekBenefit weekBenefit = WeekBenefit.of();
-            weekBenefit.applyDiscount(orderDate, orderMenu, benefitHistory);
+            WeekService weekService = WeekService.of();
+            weekService.applyDiscount(orderDate, orderMenu, benefitHistory);
 
             // then
-            Assertions.assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.WEEKEND_DISCOUNT))
+            Assertions.assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.WEEKEND_DISCOUNT))
                     .isEqualTo(2_023L * 3);
         }
 
@@ -48,11 +48,11 @@ public class WeekBenefitTest {
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
-            WeekBenefit weekBenefit = WeekBenefit.of();
-            weekBenefit.applyDiscount(orderDate, orderMenu, benefitHistory);
+            WeekService weekService = WeekService.of();
+            weekService.applyDiscount(orderDate, orderMenu, benefitHistory);
 
             // then
-            Assertions.assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.WEEKDAY_DISCOUNT))
+            Assertions.assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.WEEKDAY_DISCOUNT))
                     .isEqualTo(2_023L * 2);
         }
     }

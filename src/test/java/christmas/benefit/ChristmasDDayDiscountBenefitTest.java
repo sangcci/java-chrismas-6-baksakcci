@@ -1,8 +1,8 @@
 package christmas.benefit;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.benefit.ChristmasDDayBenefit;
-import christmas.domain.constant.Benefit;
+import christmas.service.discount.ChristmasDDayService;
+import christmas.domain.constant.DiscountBenefit;
 import christmas.domain.order.OrderDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class ChristmasDDayBenefitTest {
+public class ChristmasDDayDiscountBenefitTest {
 
     @Nested
     @DisplayName("[service] 크리스마스 할인 혜택을 받는다")
@@ -24,13 +24,13 @@ public class ChristmasDDayBenefitTest {
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
-            ChristmasDDayBenefit benefit = ChristmasDDayBenefit.of();
+            ChristmasDDayService benefit = ChristmasDDayService.of();
             benefit.applyDiscount(orderDate, benefitHistory);
 
             // then
             assertThat(orderDate.isContainChristmasDDay())
                     .isFalse();
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.CHRISTMAS_D_DAY_DISCOUNT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.CHRISTMAS_D_DAY_DISCOUNT))
                     .isEqualTo(0L);
         }
 
@@ -42,13 +42,13 @@ public class ChristmasDDayBenefitTest {
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
-            ChristmasDDayBenefit benefit = ChristmasDDayBenefit.of();
+            ChristmasDDayService benefit = ChristmasDDayService.of();
             benefit.applyDiscount(orderDate, benefitHistory);
 
             // then
             assertThat(orderDate.isContainChristmasDDay())
                     .isTrue();
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.CHRISTMAS_D_DAY_DISCOUNT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.CHRISTMAS_D_DAY_DISCOUNT))
                     .isEqualTo(1_900L);
         }
     }
