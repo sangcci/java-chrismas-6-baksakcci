@@ -1,14 +1,14 @@
 package christmas.benefit;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.constant.DiscountBenefit;
+import christmas.domain.constant.Benefit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class DiscountBenefitHistoryTest {
+public class BenefitHistoryTest {
 
     @Nested
     @DisplayName("[new] 생성자 테스트")
@@ -33,13 +33,13 @@ public class DiscountBenefitHistoryTest {
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
-            benefitHistory.addDiscountPrice(DiscountBenefit.GIFT_EVENT, 25_000L);
-            benefitHistory.addDiscountPrice(DiscountBenefit.WEEKDAY_DISCOUNT, 2_023L);
+            benefitHistory.addDiscountPrice(Benefit.GIFT_EVENT, 25_000L);
+            benefitHistory.addDiscountPrice(Benefit.WEEKDAY_DISCOUNT, 2_023L);
 
             // then
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.GIFT_EVENT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.GIFT_EVENT))
                     .isEqualTo(25_000L);
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.WEEKDAY_DISCOUNT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.WEEKDAY_DISCOUNT))
                     .isEqualTo(2_023L);
         }
     }

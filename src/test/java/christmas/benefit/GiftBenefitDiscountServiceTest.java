@@ -2,7 +2,7 @@ package christmas.benefit;
 
 import christmas.domain.benefit.BenefitHistory;
 import christmas.service.GiftService;
-import christmas.domain.constant.DiscountBenefit;
+import christmas.domain.constant.Benefit;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderPrice;
 import christmas.view.input.InputUtil;
@@ -36,7 +36,7 @@ public class GiftBenefitDiscountServiceTest {
             // then
             assertThat(giftService.hasChampagne())
                     .isFalse();
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.GIFT_EVENT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.GIFT_EVENT))
                     .isEqualTo(0L);
         }
 

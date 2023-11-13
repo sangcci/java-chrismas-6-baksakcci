@@ -2,7 +2,7 @@ package christmas.benefit;
 
 import christmas.domain.benefit.BenefitHistory;
 import christmas.service.discount.ChristmasDDayService;
-import christmas.domain.constant.DiscountBenefit;
+import christmas.domain.constant.Benefit;
 import christmas.domain.order.OrderDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class ChristmasDDayDiscountBenefitTest {
+public class ChristmasDDayBenefitTest {
 
     @Nested
     @DisplayName("[service] 크리스마스 할인 혜택을 받는다")
@@ -30,7 +30,7 @@ public class ChristmasDDayDiscountBenefitTest {
             // then
             assertThat(orderDate.isContainChristmasDDay())
                     .isFalse();
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.CHRISTMAS_D_DAY_DISCOUNT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.CHRISTMAS_D_DAY_DISCOUNT))
                     .isEqualTo(0L);
         }
 
@@ -48,7 +48,7 @@ public class ChristmasDDayDiscountBenefitTest {
             // then
             assertThat(orderDate.isContainChristmasDDay())
                     .isTrue();
-            assertThat(benefitHistory.getBenefitDiscountEachPrice(DiscountBenefit.CHRISTMAS_D_DAY_DISCOUNT))
+            assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.CHRISTMAS_D_DAY_DISCOUNT))
                     .isEqualTo(1_900L);
         }
     }
