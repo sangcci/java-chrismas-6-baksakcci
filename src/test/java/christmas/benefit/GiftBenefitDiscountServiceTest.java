@@ -34,7 +34,7 @@ public class GiftBenefitDiscountServiceTest {
             giftService.present(orderPrice, benefitHistory);
 
             // then
-            assertThat(giftService.hasChampagne())
+            assertThat(benefitHistory.getHasChampagne())
                     .isFalse();
             assertThat(benefitHistory.getBenefitDiscountEachPrice(Benefit.GIFT_EVENT))
                     .isEqualTo(0L);
@@ -55,7 +55,7 @@ public class GiftBenefitDiscountServiceTest {
             giftService.present(orderPrice, benefitHistory);
 
             // then
-            assertThat(giftService.hasChampagne())
+            assertThat(benefitHistory.getHasChampagne())
                     .isTrue();
         }
     }
