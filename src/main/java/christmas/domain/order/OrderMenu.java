@@ -109,6 +109,7 @@ public class OrderMenu {
     private static boolean isNotLessThan1(int input) {
         return input < 1;
     }
+
     public boolean isOnlyBeverage() {
         return orderMenuCount.keySet().stream()
                 .allMatch(menu -> menu.isBeverage());
