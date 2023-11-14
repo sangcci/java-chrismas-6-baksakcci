@@ -21,8 +21,8 @@ public class OrderPrice {
     }
 
     // validation
-    public boolean isLessThan10000(long totalPrice) {
-        return totalPrice < 10_000L;
+    public boolean isMoreThan10000() {
+        return totalPrice >= 10_000L;
     }
 
     // getter

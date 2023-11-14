@@ -51,13 +51,15 @@ public class ChristmasPromotionsController {
         BenefitHistory benefitHistory = BenefitHistory.of();
 
         // business logic
-        benefitHistory.addGiftChampagne(orderPrice);
+        if (orderPrice.isMoreThan10000()) {
+            benefitHistory.addGiftChampagne(orderPrice);
 
-        discountService.applyChristmasDDayDiscount(orderDate, benefitHistory);
-        discountService.applyWeekDiscount(orderDate, orderMenu, benefitHistory);
-        discountService.applySpecialDiscount(orderDate, benefitHistory);
+            discountService.applyChristmasDDayDiscount(orderDate, benefitHistory);
+            discountService.applyWeekDiscount(orderDate, orderMenu, benefitHistory);
+            discountService.applySpecialDiscount(orderDate, benefitHistory);
 
-        benefitHistory.addEventBadge();
+            benefitHistory.addEventBadge();
+        }
 
         // output
         outputView.printTitle();
