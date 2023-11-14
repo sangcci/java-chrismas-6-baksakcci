@@ -25,7 +25,7 @@ public class OutputView {
     private void printOrderMenu(OrderMenu orderMenu) {
         System.out.println(OutputMessage.ORDER_MENU.getMessage());
         Map<Menu, Integer> orderMenuCount = orderMenu.getOrderMenuCount();
-        orderMenuCount.keySet().stream()
+        orderMenuCount.keySet()
                 .forEach(menu -> System.out.format(OutputFormat.ORDER_MENU.get(),
                         menu.getName(),
                         orderMenuCount.get(menu)));
@@ -58,7 +58,7 @@ public class OutputView {
     private void printBenefitHistory(BenefitHistory benefitHistory) {
         System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
         Map<Benefit, Long> benefitDiscountPrice = benefitHistory.getBenefitDiscountPrice();
-        benefitDiscountPrice.keySet().stream()
+        benefitDiscountPrice.keySet()
                 .forEach(benefit -> System.out.format(OutputFormat.BENEFIT_PRICE.get(),
                         benefit.getName(),
                         benefitDiscountPrice.get(benefit)));
