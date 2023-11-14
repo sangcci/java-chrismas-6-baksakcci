@@ -51,7 +51,7 @@ public class ChristmasPromotionsController {
         BenefitHistory benefitHistory = BenefitHistory.of();
 
         // business logic
-        if (orderPrice.isMoreThan10000()) {
+        if (orderPrice.isMoreThan10000() && !orderMenu.isOnlyBeverage()) {
             benefitHistory.addGiftChampagne(orderPrice);
 
             discountService.applyChristmasDDayDiscount(orderDate, benefitHistory);

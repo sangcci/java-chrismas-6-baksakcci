@@ -58,6 +58,10 @@ public enum Menu {
         return name.equals(input);
     }
 
+    public boolean isBeverage() {
+        return type.equals(MenuType.BEVERAGE);
+    }
+
     // getter
     public long getPrice() {
         return this.price;
