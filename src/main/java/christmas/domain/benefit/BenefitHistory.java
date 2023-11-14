@@ -78,7 +78,15 @@ public class BenefitHistory {
 
     // getter
     public Map<Benefit, Long> getBenefitDiscountPrice() {
+        if (isNothingBenefit()) {
+            return null;
+        }
         return benefitDiscountPrice;
+    }
+
+    public boolean isNothingBenefit() {
+        return benefitDiscountPrice.keySet().stream()
+                .allMatch(benefit -> benefitDiscountPrice.get(benefit) == 0L);
     }
 
     public Gift getGift() {

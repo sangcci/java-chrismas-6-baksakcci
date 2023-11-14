@@ -7,8 +7,8 @@ import christmas.domain.constant.Gift;
 import christmas.domain.constant.Menu;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderPrice;
-import christmas.view.output.constant.OutputMessage;
 import christmas.view.output.constant.OutputFormat;
+import christmas.view.output.constant.OutputMessage;
 import java.util.Map;
 
 public class OutputView {
@@ -68,12 +68,16 @@ public class OutputView {
         Map<Benefit, Long> benefitDiscountPrice = benefitHistory.getBenefitDiscountPrice();
 
         System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
-
-        benefitDiscountPrice.keySet().stream()
-                .filter(benefit -> benefitDiscountPrice.get(benefit) != 0L)
-                .forEach(benefit -> System.out.format(OutputFormat.BENEFIT_PRICE.get(),
-                        benefit.getName(),
-                        benefitDiscountPrice.get(benefit)));
+        if (benefitDiscountPrice == null) {
+            System.out.print(OutputFormat.NOTHING.get());
+        }
+        if (benefitDiscountPrice != null) {
+            benefitDiscountPrice.keySet().stream()
+                    .filter(benefit -> benefitDiscountPrice.get(benefit) != 0L)
+                    .forEach(benefit -> System.out.format(OutputFormat.BENEFIT_PRICE.get(),
+                            benefit.getName(),
+                            benefitDiscountPrice.get(benefit)));
+        }
         System.out.println();
     }
 
