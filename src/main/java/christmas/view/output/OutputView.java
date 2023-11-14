@@ -7,7 +7,7 @@ import christmas.domain.constant.Menu;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderPrice;
 import christmas.view.output.constant.OutputMessage;
-import christmas.view.output.constant.Unit;
+import christmas.view.output.constant.OutputFormat;
 import java.util.Map;
 
 public class OutputView {
@@ -26,13 +26,15 @@ public class OutputView {
         System.out.println(OutputMessage.ORDER_MENU.getMessage());
         Map<Menu, Integer> orderMenuCount = orderMenu.getOrderMenuCount();
         orderMenuCount.keySet().stream()
-                .forEach(menu -> System.out.println(menu.getName() + " " + orderMenuCount.get(menu) + Unit.EA.getUnit()));
+                .forEach(menu -> System.out.format(OutputFormat.ORDER_MENU.get(),
+                        menu.getName(),
+                        orderMenuCount.get(menu)));
         System.out.println();
     }
 
     private void printTotalOrderPrice(OrderPrice orderPrice) {
         System.out.println(OutputMessage.TOTAL_ORDER_PRICE_BEFORE_DISCOUNT.getMessage());
-        System.out.println(orderPrice.getTotalPrice() + Unit.WON.getUnit());
+        System.out.format(OutputFormat.WON.get(), orderPrice.getTotalPrice());
         System.out.println();
     }
 
@@ -52,7 +54,7 @@ public class OutputView {
         if (benefitHistory.getHasChampagne()) {
             System.out.println("샴페인 1개");
         } else {
-            System.out.println(Unit.NOTHING.getUnit());
+            System.out.println(OutputFormat.NOTHING.get());
         }
         System.out.println();
     }
@@ -61,19 +63,21 @@ public class OutputView {
         System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
         Map<Benefit, Long> benefitDiscountPrice = benefitHistory.getBenefitDiscountPrice();
         benefitDiscountPrice.keySet().stream()
-                .forEach(benefit -> System.out.println(benefit.getName() + ": " + benefitDiscountPrice.get(benefit) + "원"));
+                .forEach(benefit -> System.out.format(OutputFormat.BENEFIT_PRICE.get(),
+                        benefit.getName(),
+                        benefitDiscountPrice.get(benefit)));
         System.out.println();
     }
 
     private void printTotalBenefitPrice(long price) {
         System.out.println(OutputMessage.TOTAL_BENEFIT_PRICE.getMessage());
-        System.out.println(price + "원");
+        System.out.format(OutputFormat.WON.get(), price);
         System.out.println();
     }
 
     private void printTotalPriceAfterDiscount(long price) {
         System.out.println(OutputMessage.PAYMENT_AFTER_DISCOUNT.getMessage());
-        System.out.println(price + "원");
+        System.out.format(OutputFormat.WON.get(), price);
         System.out.println();
     }
 
