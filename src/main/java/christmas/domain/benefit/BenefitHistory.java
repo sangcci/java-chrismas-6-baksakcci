@@ -50,7 +50,6 @@ public class BenefitHistory {
         this.eventBadge = EventBadge.determineBadge(totalDiscountPrice);
     }
 
-    // getter
     public Long getBenefitDiscountEachPrice(Benefit benefit) {
         return benefitDiscountPrice.get(benefit);
     }
@@ -68,6 +67,7 @@ public class BenefitHistory {
                 .sum();
     }
 
+    // getter
     public Map<Benefit, Long> getBenefitDiscountPrice() {
         return benefitDiscountPrice;
     }
