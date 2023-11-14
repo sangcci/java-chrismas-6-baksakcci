@@ -50,8 +50,16 @@ public class OutputView {
     }
 
     private void printGiftMenu(BenefitHistory benefitHistory) {
+        Gift gift = benefitHistory.getGift();
+
         System.out.println(OutputMessage.GIFT_MENU.getMessage());
-        System.out.format(OutputFormat.ORDER_MENU.get(), benefitHistory.getGift().getName(), 1);
+
+        if (gift == Gift.CHAMPAGNE) {
+            System.out.format(OutputFormat.ORDER_MENU.get(), benefitHistory.getGift().getName(), 1);
+        }
+        if (gift == Gift.NOTHING) {
+            System.out.format(OutputFormat.NOTHING.get());
+        }
         System.out.println();
     }
 
