@@ -64,11 +64,13 @@ public class BenefitHistory {
                 .sum();
     }
 
-    public long getTotalDiscountPrice() {
-        return benefitDiscountPrice.keySet().stream()
+    public long getTotalPriceAfterDiscount(OrderPrice orderPrice) {
+        long totalPrice = orderPrice.getTotalPrice();
+        long totalDiscountPrice = benefitDiscountPrice.keySet().stream()
                 .filter(benefit -> benefit != Benefit.GIFT_EVENT)
                 .mapToLong(benefitDiscountPrice::get)
                 .sum();
+        return totalPrice - totalDiscountPrice;
     }
 
     // validation

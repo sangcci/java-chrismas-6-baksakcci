@@ -65,10 +65,9 @@ public class ChristmasPromotionsController {
         outputView.printTitle();
         outputView.printBeforeApplyBenefit(orderMenu, orderPrice);
 
-        long totalPriceAfterDiscount = orderPrice.getTotalPrice() - benefitHistory.getTotalDiscountPrice();
         outputView.printAfterApplyBenefit(benefitHistory,
                 benefitHistory.getTotalBenefitPrice(),
-                totalPriceAfterDiscount,
+                benefitHistory.getTotalPriceAfterDiscount(orderPrice),
                 benefitHistory.getEventBadge());
     }
 }
