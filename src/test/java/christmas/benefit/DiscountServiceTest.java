@@ -7,7 +7,6 @@ import christmas.domain.constant.Benefit;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
 import christmas.service.DiscountService;
-import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -71,7 +70,6 @@ public class DiscountServiceTest {
             // given
             OrderDate orderDate = OrderDate.of("15");
             String input = "티본스테이크-1,해산물파스타-2,아이스크림-2,제로콜라-1";
-            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
             OrderMenu orderMenu = OrderMenu.of(input);
             BenefitHistory benefitHistory = BenefitHistory.of();
 
@@ -89,7 +87,6 @@ public class DiscountServiceTest {
             // given
             OrderDate orderDate = OrderDate.of("18");
             String input = "티본스테이크-1,해산물파스타-2,아이스크림-2,제로콜라-1";
-            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
             OrderMenu orderMenu = OrderMenu.of(input);
             BenefitHistory benefitHistory = BenefitHistory.of();
 

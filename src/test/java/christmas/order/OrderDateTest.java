@@ -15,21 +15,12 @@ public class OrderDateTest {
     class inputParserTest {
 
         @Test
-        @DisplayName("[SUCCESS] 숫자를 입력받은 객체 생성")
-        void should_success_when_createInteger() {
-            String input = "30";
-
-            assertThat(InputUtil.parseStringToInt(input))
-                    .isEqualTo(30);
-        }
-
-        @Test
         @DisplayName("[EXCEPTION] 숫자가 아닐 경우 예외 발생")
         void should_throwException_when_isNotNumeric() {
             String input = "abc";
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> InputUtil.parseStringToInt(input));
+                    .isThrownBy(() -> OrderDate.of(input));
         }
     }
 
@@ -42,8 +33,6 @@ public class OrderDateTest {
         void should_success_when_createDate() {
             String input = "30";
 
-            int dateInput = InputUtil.parseStringToInt(input);
-
             assertThat(OrderDate.of(input))
                     .isInstanceOf(OrderDate.class);
         }
@@ -52,8 +41,6 @@ public class OrderDateTest {
         @DisplayName("[EXCEPTION] 1일부터 31일 사이의 숫자가 아닐 경우 예외 발생")
         void should_throwException_when_isNotBetween1And31() {
             String input = "40";
-
-            int dateInput = InputUtil.parseStringToInt(input);
 
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> OrderDate.of(input));

@@ -3,7 +3,6 @@ package christmas.benefit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.service.EventBadgeService;
 import christmas.domain.constant.Benefit;
 import christmas.domain.constant.EventBadge;
 import org.junit.jupiter.api.DisplayName;
@@ -24,8 +23,7 @@ public class EventBadgeBenefitTest {
             benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 5000);
 
             // when
-            EventBadgeService eventBadgeService = EventBadgeService.of();
-            eventBadgeService.apply(benefitHistory);
+            benefitHistory.addEventBadge();
 
             // then
             assertThat(benefitHistory.getEventBadge()).isEqualTo(EventBadge.STAR);
@@ -39,8 +37,7 @@ public class EventBadgeBenefitTest {
             benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 10000);
 
             // when
-            EventBadgeService eventBadgeService = EventBadgeService.of();
-            eventBadgeService.apply(benefitHistory);
+            benefitHistory.addEventBadge();
 
             // then
             assertThat(benefitHistory.getEventBadge()).isEqualTo(EventBadge.TREE);
@@ -54,8 +51,7 @@ public class EventBadgeBenefitTest {
             benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 20000);
 
             // when
-            EventBadgeService eventBadgeService = EventBadgeService.of();
-            eventBadgeService.apply(benefitHistory);
+            benefitHistory.addEventBadge();
 
             // then
             assertThat(benefitHistory.getEventBadge()).isEqualTo(EventBadge.SANTA);
@@ -69,11 +65,11 @@ public class EventBadgeBenefitTest {
             benefitHistory.addDiscountPrice(Benefit.WEEKEND_DISCOUNT, 1000);
 
             // when
-            EventBadgeService eventBadgeService = EventBadgeService.of();
-            eventBadgeService.apply(benefitHistory);
+            benefitHistory.addEventBadge();
 
             // then
-            assertThat(benefitHistory.getEventBadge()).isNull();
+            assertThat(benefitHistory.getEventBadge())
+                    .isEqualTo(EventBadge.NOTHING);
         }
     }
 }
