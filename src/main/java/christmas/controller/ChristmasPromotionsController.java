@@ -1,7 +1,6 @@
 package christmas.controller;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.constant.EventBadge;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderPrice;
@@ -66,7 +65,7 @@ public class ChristmasPromotionsController {
         discountService.applyWeekDiscount(orderDate, orderMenu, benefitHistory);
         discountService.applySpecialDiscount(orderDate, benefitHistory);
 
-        EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
+        eventBadgeService.apply(benefitHistory);
 
         // output
         outputView.printTitle();
@@ -76,6 +75,6 @@ public class ChristmasPromotionsController {
         outputView.printAfterApplyBenefit(benefitHistory,
                 benefitHistory.getTotalBenefitPrice(),
                 totalPriceAfterDiscount,
-                eventBadge);
+                benefitHistory.getEventBadge());
     }
 }

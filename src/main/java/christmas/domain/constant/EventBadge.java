@@ -3,7 +3,8 @@ package christmas.domain.constant;
 public enum EventBadge {
     STAR("별", 5_000L),
     TREE("트리", 10_000L),
-    SANTA("산타", 20_000L);
+    SANTA("산타", 20_000L),
+    NOTHING("없음", 0L);
 
     private String name;
     private long minimumPrice;
@@ -25,7 +26,7 @@ public enum EventBadge {
         if (price >= STAR.minimumPrice) {
             return EventBadge.STAR;
         }
-        return null;
+        return EventBadge.NOTHING;
     }
 
     // getter

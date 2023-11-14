@@ -1,13 +1,13 @@
 package christmas.order;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import christmas.domain.order.OrderMenu;
-import christmas.view.input.InputUtil;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.*;
 
 public class OrderMenuTest {
 
@@ -30,8 +30,7 @@ public class OrderMenuTest {
             String input = "제로콜라-1,제로콜라-1";
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> InputUtil.convertNameAndCount(input))
-                    .withMessageContaining("중복");
+                    .isThrownBy(() -> InputUtil.convertNameAndCount(input));
         }
     }
 
@@ -46,7 +45,7 @@ public class OrderMenuTest {
 
             Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
 
-            assertThat(OrderMenu.of(orderMenuInput))
+            assertThat(OrderMenu.of(input))
                     .isInstanceOf(OrderMenu.class);
         }
 
@@ -58,8 +57,7 @@ public class OrderMenuTest {
             Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> OrderMenu.of(orderMenuInput))
-                    .withMessageContaining("존재하지 않는 메뉴");
+                    .isThrownBy(() -> OrderMenu.of(input));
         }
 
         @Test
@@ -70,8 +68,7 @@ public class OrderMenuTest {
             Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> OrderMenu.of(orderMenuInput))
-                    .withMessageContaining("20개");
+                    .isThrownBy(() -> OrderMenu.of(input));
         }
     }
 

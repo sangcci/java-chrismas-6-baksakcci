@@ -25,10 +25,10 @@ public class EventBadgeBenefitTest {
 
             // when
             EventBadgeService eventBadgeService = EventBadgeService.of();
-            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
+            eventBadgeService.apply(benefitHistory);
 
             // then
-            assertThat(eventBadge).isEqualTo(EventBadge.STAR);
+            assertThat(benefitHistory.getEventBadge()).isEqualTo(EventBadge.STAR);
         }
 
         @Test
@@ -40,10 +40,10 @@ public class EventBadgeBenefitTest {
 
             // when
             EventBadgeService eventBadgeService = EventBadgeService.of();
-            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
+            eventBadgeService.apply(benefitHistory);
 
             // then
-            assertThat(eventBadge).isEqualTo(EventBadge.TREE);
+            assertThat(benefitHistory.getEventBadge()).isEqualTo(EventBadge.TREE);
         }
 
         @Test
@@ -55,10 +55,10 @@ public class EventBadgeBenefitTest {
 
             // when
             EventBadgeService eventBadgeService = EventBadgeService.of();
-            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
+            eventBadgeService.apply(benefitHistory);
 
             // then
-            assertThat(eventBadge).isEqualTo(EventBadge.SANTA);
+            assertThat(benefitHistory.getEventBadge()).isEqualTo(EventBadge.SANTA);
         }
 
         @Test
@@ -70,10 +70,10 @@ public class EventBadgeBenefitTest {
 
             // when
             EventBadgeService eventBadgeService = EventBadgeService.of();
-            EventBadge eventBadge = eventBadgeService.apply(benefitHistory);
+            eventBadgeService.apply(benefitHistory);
 
             // then
-            assertThat(eventBadge).isNull();
+            assertThat(benefitHistory.getEventBadge()).isNull();
         }
     }
 }

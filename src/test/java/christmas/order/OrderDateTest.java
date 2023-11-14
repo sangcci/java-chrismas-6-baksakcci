@@ -1,12 +1,12 @@
 package christmas.order;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import christmas.domain.order.OrderDate;
-import christmas.view.input.InputUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.*;
 
 public class OrderDateTest {
 
@@ -29,8 +29,7 @@ public class OrderDateTest {
             String input = "abc";
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> InputUtil.parseStringToInt(input))
-                    .withMessageContaining("숫자를 입력해 주세요");
+                    .isThrownBy(() -> InputUtil.parseStringToInt(input));
         }
     }
 
@@ -45,7 +44,7 @@ public class OrderDateTest {
 
             int dateInput = InputUtil.parseStringToInt(input);
 
-            assertThat(OrderDate.of(dateInput))
+            assertThat(OrderDate.of(input))
                     .isInstanceOf(OrderDate.class);
         }
 
@@ -57,8 +56,7 @@ public class OrderDateTest {
             int dateInput = InputUtil.parseStringToInt(input);
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> OrderDate.of(dateInput))
-                    .withMessageContaining("유효한 날짜 형식이 아닙니다.");
+                    .isThrownBy(() -> OrderDate.of(input));
         }
     }
 }

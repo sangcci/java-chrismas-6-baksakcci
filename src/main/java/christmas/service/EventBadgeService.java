@@ -1,7 +1,6 @@
 package christmas.service;
 
 import christmas.domain.benefit.BenefitHistory;
-import christmas.domain.constant.EventBadge;
 
 public class EventBadgeService {
 
@@ -15,8 +14,7 @@ public class EventBadgeService {
     }
 
     // service
-    public EventBadge apply(BenefitHistory benefitHistory) {
-        long totalBenefitPrice = benefitHistory.getTotalBenefitPrice();
-        return EventBadge.determineBadge(totalBenefitPrice);
+    public void apply(BenefitHistory benefitHistory) {
+        benefitHistory.addEventBadge();
     }
 }
