@@ -23,6 +23,7 @@ public class ChristmasPromotionsController {
         this.discountService = discountService;
     }
 
+    // exception handler
     public <T> T retryOnException(Supplier<T> supplier) {
         while (true) {
             try {
@@ -34,23 +35,32 @@ public class ChristmasPromotionsController {
         }
     }
 
-    public OrderDate inputOrderDate() {
-        return OrderDate.of(inputView.inputDate());
-    }
-
-    public OrderMenu inputOrderMenu() {
-        return OrderMenu.of(inputView.inputMenu());
-    }
-
+    // run
     public void run() {
         // input
         inputView.openingComment();
         OrderDate orderDate = retryOnException(this::inputOrderDate);
         OrderMenu orderMenu = retryOnException(this::inputOrderMenu);
         OrderPrice orderPrice = OrderPrice.of(orderMenu);
+
+        // apply benefit
+        BenefitHistory benefitHistory = applyBenefit(orderDate, orderMenu, orderPrice);
+
+        // output
+        outputBenefit(orderMenu, orderPrice, benefitHistory);
+    }
+
+    private OrderDate inputOrderDate() {
+        return OrderDate.of(inputView.inputDate());
+    }
+
+    private OrderMenu inputOrderMenu() {
+        return OrderMenu.of(inputView.inputMenu());
+    }
+
+    private BenefitHistory applyBenefit(OrderDate orderDate, OrderMenu orderMenu, OrderPrice orderPrice) {
         BenefitHistory benefitHistory = BenefitHistory.of();
 
-        // business logic
         if (orderPrice.isMoreThan10000() && !orderMenu.isOnlyBeverage()) {
             benefitHistory.addGiftChampagne(orderPrice);
 
@@ -60,8 +70,10 @@ public class ChristmasPromotionsController {
 
             benefitHistory.addEventBadge();
         }
+        return benefitHistory;
+    }
 
-        // output
+    private void outputBenefit(OrderMenu orderMenu, OrderPrice orderPrice, BenefitHistory benefitHistory) {
         outputView.printTitle();
         outputView.printBeforeApplyBenefit(orderMenu, orderPrice);
 

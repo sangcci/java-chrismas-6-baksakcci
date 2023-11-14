@@ -44,7 +44,7 @@ public class EventBadgeBenefitTest {
         }
 
         @Test
-        @DisplayName("[SUCCESS] 총 혜택 금액이 20000원 이상 이라면 트리 뱃지를 받는다")
+        @DisplayName("[SUCCESS] 총 혜택 금액이 20000원 이상 이라면 산타 뱃지를 받는다")
         void should_getSantaBadge_when_isMoreThan20000() {
             // given
             BenefitHistory benefitHistory = BenefitHistory.of();

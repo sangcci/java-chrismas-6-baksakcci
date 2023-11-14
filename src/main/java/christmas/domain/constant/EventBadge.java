@@ -1,32 +1,29 @@
 package christmas.domain.constant;
 
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 public enum EventBadge {
-    STAR("별", 5_000L),
-    TREE("트리", 10_000L),
-    SANTA("산타", 20_000L),
-    NOTHING("없음", 0L);
+    STAR("별", (price) -> price >= 5_000L && price < 10_000L),
+    TREE("트리", (price) -> price >= 10_000L && price < 20_000L),
+    SANTA("산타", (price) -> price >= 20_000L),
+    NOTHING("없음", (price) -> price >= 0 & price < 5_000L);
 
     private String name;
-    private long minimumPrice;
+    private Predicate<Long> predicate;
 
     // enum constructor
-    EventBadge(String name, long minimumPrice) {
+    EventBadge(String name, Predicate<Long> predicate) {
         this.name = name;
-        this.minimumPrice = minimumPrice;
+        this.predicate = predicate;
     }
 
     // utility
     public static EventBadge determineBadge(long price) {
-        if (price >= SANTA.minimumPrice) {
-            return EventBadge.SANTA;
-        }
-        if (price >= TREE.minimumPrice) {
-            return EventBadge.TREE;
-        }
-        if (price >= STAR.minimumPrice) {
-            return EventBadge.STAR;
-        }
-        return EventBadge.NOTHING;
+        return Arrays.stream(values())
+                .filter(eventBadge -> eventBadge.predicate.test(price))
+                .findFirst()
+                .orElse(NOTHING);
     }
 
     // getter
