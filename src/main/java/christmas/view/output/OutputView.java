@@ -3,6 +3,7 @@ package christmas.view.output;
 import christmas.domain.benefit.BenefitHistory;
 import christmas.domain.constant.Benefit;
 import christmas.domain.constant.EventBadge;
+import christmas.domain.constant.Gift;
 import christmas.domain.constant.Menu;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderPrice;
@@ -64,9 +65,12 @@ public class OutputView {
     }
 
     private void printBenefitHistory(BenefitHistory benefitHistory) {
-        System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
         Map<Benefit, Long> benefitDiscountPrice = benefitHistory.getBenefitDiscountPrice();
-        benefitDiscountPrice.keySet()
+
+        System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
+
+        benefitDiscountPrice.keySet().stream()
+                .filter(benefit -> benefitDiscountPrice.get(benefit) != 0L)
                 .forEach(benefit -> System.out.format(OutputFormat.BENEFIT_PRICE.get(),
                         benefit.getName(),
                         benefitDiscountPrice.get(benefit)));
