@@ -4,6 +4,7 @@ import christmas.domain.constant.Benefit;
 import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.Gift;
 import christmas.domain.constant.Menu;
+import christmas.domain.order.OrderPrice;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
@@ -36,14 +37,16 @@ public class BenefitHistory {
     }
 
     // utility
+    public void addGiftChampagne(OrderPrice orderPrice) {
+        if (hasQualificationForGift(orderPrice)) {
+            addDiscountPrice(Benefit.GIFT_EVENT, Menu.CHAMPAGNE.getPrice());
+            gift = Gift.CHAMPAGNE;
+        }
+    }
+
     public void addDiscountPrice(Benefit benefit, long price) {
         Long past = benefitDiscountPrice.get(benefit);
         benefitDiscountPrice.replace(benefit, past + price);
-    }
-
-    public void addGiftChampagne() {
-        addDiscountPrice(Benefit.GIFT_EVENT, Menu.CHAMPAGNE.getPrice());
-        gift = Gift.CHAMPAGNE;
     }
 
     public void addEventBadge() {
@@ -66,6 +69,11 @@ public class BenefitHistory {
                 .filter(benefit -> benefit != Benefit.GIFT_EVENT)
                 .mapToLong(benefitDiscountPrice::get)
                 .sum();
+    }
+
+    // validation
+    private boolean hasQualificationForGift(OrderPrice orderPrice) {
+        return orderPrice.isMoreThan120_000();
     }
 
     // getter
