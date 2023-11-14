@@ -2,6 +2,7 @@ package christmas.domain.benefit;
 
 import christmas.domain.constant.Benefit;
 import christmas.domain.constant.EventBadge;
+import christmas.domain.constant.Gift;
 import christmas.domain.constant.Menu;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -11,13 +12,13 @@ import java.util.stream.Collectors;
 public class BenefitHistory {
 
     private final Map<Benefit, Long> benefitDiscountPrice;
-    private boolean hasChampagne;
+    private Gift gift;
     private EventBadge eventBadge;
 
     // constructor
     private BenefitHistory(Map<Benefit, Long> benefitDiscountPrice) {
         this.benefitDiscountPrice = benefitDiscountPrice;
-        this.hasChampagne = false;
+        this.gift = Gift.NOTHING;
         this.eventBadge = EventBadge.NOTHING;
     }
     
@@ -42,7 +43,7 @@ public class BenefitHistory {
 
     public void addGiftChampagne() {
         addDiscountPrice(Benefit.GIFT_EVENT, Menu.CHAMPAGNE.getPrice());
-        hasChampagne = true;
+        gift = Gift.CHAMPAGNE;
     }
 
     public void addEventBadge() {
@@ -72,8 +73,8 @@ public class BenefitHistory {
         return benefitDiscountPrice;
     }
 
-    public boolean getHasChampagne() {
-        return hasChampagne;
+    public Gift getGift() {
+        return gift;
     }
 
     public EventBadge getEventBadge() {

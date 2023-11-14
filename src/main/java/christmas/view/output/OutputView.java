@@ -51,11 +51,7 @@ public class OutputView {
 
     private void printGiftMenu(BenefitHistory benefitHistory) {
         System.out.println(OutputMessage.GIFT_MENU.getMessage());
-        if (benefitHistory.getHasChampagne()) {
-            System.out.println("샴페인 1개");
-        } else {
-            System.out.println(OutputFormat.NOTHING.get());
-        }
+        System.out.format(OutputFormat.ORDER_MENU.get(), benefitHistory.getGift().getName(), 1);
         System.out.println();
     }
 
