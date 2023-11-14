@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.exception.IllegalDateInputException;
 import java.util.stream.IntStream;
 
 public class OrderDate {
@@ -7,13 +8,15 @@ public class OrderDate {
     private int date;
 
     // constructor
-    private OrderDate(int date) {
-        validateDate(date);
-        this.date = date;
+    private OrderDate(String input) {
+        validateIsNumeric(input);
+        int parseInt = Integer.parseInt(input);
+        validateDate(parseInt);
+        this.date = parseInt;
     }
 
     // static factory
-    public static OrderDate of(Integer input) {
+    public static OrderDate of(String input) {
         return new OrderDate(input);
     }
 
@@ -41,14 +44,24 @@ public class OrderDate {
     }
 
     // exception handling
+    private void validateIsNumeric(String input) {
+        if (!isNumeric(input)) {
+            throw new IllegalDateInputException();
+        }
+    }
+
     private void validateDate(int date) {
         if (isIncludeDate(date)) {
-            throw new IllegalArgumentException("[ERROR] 유효한 날짜 형식이 아닙니다.");
+            throw new IllegalDateInputException();
         }
     }
 
     // validation
     private boolean isIncludeDate(int date) {
         return date < 1 || date > 31;
+    }
+
+    private boolean isNumeric(String input) {
+        return input.chars().allMatch(Character::isDigit);
     }
 }

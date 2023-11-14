@@ -2,13 +2,19 @@ package christmas.domain.order;
 
 import christmas.domain.constant.Menu;
 import christmas.domain.constant.MenuType;
+import christmas.exception.IllegalMenuInputException;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderMenu {
 
     private final Map<Menu, Integer> orderMenuCount;
+
+    // constant
+    private static final String COMMA = ",";
+    private static final String HYPHEN = "-";
 
     // constructor
     private OrderMenu(Map<Menu, Integer> orderMenuCount) {
@@ -17,14 +23,33 @@ public class OrderMenu {
     }
 
     // static factory
-    public static OrderMenu of(Map<String, Integer> input) {
-        // convert to EnumMap
-        EnumMap<Menu, Integer> enumMap = new EnumMap<>(Menu.class);
-        input.forEach((k, v) -> {
-            Menu menu = Menu.isManuPresent(k);
-            enumMap.put(menu, v);
-        });
-        return new OrderMenu(enumMap);
+    public static OrderMenu of(String input) {
+        return new OrderMenu(
+                Arrays.stream(splitByComma(input))
+                        .map(OrderMenu::splitByHyphen)
+                        .collect(Collectors.toMap(
+                            split -> Menu.isManuPresent(split[0]),
+                            split -> parseStringToCount(split[1]),
+                            (oldValue, newValue) -> { throw new IllegalMenuInputException(); },
+                            () -> new EnumMap<>(Menu.class))
+                ));
+    }
+
+    // parser
+    private static String[] splitByComma(String input) {
+        return input.split(COMMA);
+    }
+
+    private static String[] splitByHyphen(String input) {
+        validateNotContainHyphen(input);
+        return input.split(HYPHEN);
+    }
+
+    private static int parseStringToCount(String input) {
+        validateIsNumeric(input);
+        int parseInt = Integer.parseInt(input);
+        validateIsCount(parseInt);
+        return parseInt;
     }
 
     // utility
@@ -54,8 +79,35 @@ public class OrderMenu {
     // exception handling
     private void validateCountLimit(Map<Menu, Integer> orderMenuCount) {
         if (20 < getOrderMenuCountSum(orderMenuCount)) {
-            throw new IllegalArgumentException("[ERROR] 메뉴는 최대 20개까지 선택 가능하다.");
+            throw new IllegalMenuInputException();
         };
+    }
+
+    private static void validateNotContainHyphen(String input) {
+        if (!input.contains("-")) {
+            throw new IllegalMenuInputException();
+        }
+    }
+
+    private static void validateIsNumeric(String input) {
+        if (!isNumeric(input)) {
+            throw new IllegalMenuInputException();
+        }
+    }
+
+    private static void validateIsCount(int input) {
+        if (isNotLessThan1(input)) {
+            throw new IllegalMenuInputException();
+        }
+    }
+
+    // validation
+    private static boolean isNumeric(String input) {
+        return input.chars().allMatch(Character::isDigit);
+    }
+
+    private static boolean isNotLessThan1(int input) {
+        return input < 1;
     }
 
     // getter
