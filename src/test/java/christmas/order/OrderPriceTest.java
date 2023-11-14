@@ -38,6 +38,10 @@ public class OrderPriceTest {
             assertThat(OrderPrice.of(orderMenu).getTotalPrice())
                     .isEqualTo(totalOrderPrice);
         }
+    }
+    @Nested
+    @DisplayName("[utility] 유틸 메서드 테스트")
+    class utilityTest {
 
         @Test
         @DisplayName("[SUCCESS] 총 주문 금액이 1만원이 넘지 못하면 실패한다")
