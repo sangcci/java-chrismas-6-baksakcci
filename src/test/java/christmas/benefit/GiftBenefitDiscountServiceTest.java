@@ -1,17 +1,15 @@
 package christmas.benefit;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import christmas.domain.benefit.BenefitHistory;
-import christmas.service.GiftService;
 import christmas.domain.constant.Benefit;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderPrice;
-import christmas.view.input.InputUtil;
-import java.util.Map;
+import christmas.service.GiftService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.*;
 
 public class GiftBenefitDiscountServiceTest {
 
@@ -25,8 +23,7 @@ public class GiftBenefitDiscountServiceTest {
             // given
             GiftService giftService = GiftService.of();
             String input = "티본스테이크-1,제로콜라-1";
-            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
-            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+            OrderMenu orderMenu = OrderMenu.of(input);
             OrderPrice orderPrice = OrderPrice.of(orderMenu);
             BenefitHistory benefitHistory = BenefitHistory.of();
 
@@ -46,8 +43,7 @@ public class GiftBenefitDiscountServiceTest {
             // given
             GiftService giftService = GiftService.of();
             String input = "티본스테이크-3,제로콜라-1";
-            Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
-            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+            OrderMenu orderMenu = OrderMenu.of(input);
             OrderPrice orderPrice = OrderPrice.of(orderMenu);
             BenefitHistory benefitHistory = BenefitHistory.of();
 

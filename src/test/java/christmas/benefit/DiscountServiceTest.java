@@ -7,7 +7,6 @@ import christmas.domain.constant.Benefit;
 import christmas.domain.order.OrderDate;
 import christmas.domain.order.OrderMenu;
 import christmas.service.DiscountService;
-import christmas.view.input.InputUtil;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,7 @@ public class DiscountServiceTest {
         @DisplayName("[SUCCESS] 1일부터 25일 사이의 기간이 아니라면 혜택을 받지 못한다")
         void should_notBenefit_when_isNotBetween1And25() {
             // given
-            OrderDate orderDate = OrderDate.of(27);
+            OrderDate orderDate = OrderDate.of("27");
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
@@ -48,7 +47,7 @@ public class DiscountServiceTest {
         @DisplayName("[SUCCESS] 1일부터 25일 사이의 기간이라면 혜택을 받는다")
         void should_benefit_when_isBetween1And25() {
             // given
-            OrderDate orderDate = OrderDate.of(10);
+            OrderDate orderDate = OrderDate.of("10");
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
@@ -70,10 +69,10 @@ public class DiscountServiceTest {
         @DisplayName("[SUCCESS] 주말이라면 메인 음식의 갯수 * 2023 만큼 할인 받는다")
         void should_discountMainDish_when_isWeekend() {
             // given
-            OrderDate orderDate = OrderDate.of(15);
+            OrderDate orderDate = OrderDate.of("15");
             String input = "티본스테이크-1,해산물파스타-2,아이스크림-2,제로콜라-1";
             Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
-            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+            OrderMenu orderMenu = OrderMenu.of(input);
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
@@ -88,10 +87,10 @@ public class DiscountServiceTest {
         @DisplayName("[SUCCESS] 주중이라면 디저트 음식의 갯수 * 2023 만큼 할인 받는다")
         void should_discountDessertDish_when_isWeekday() {
             // given
-            OrderDate orderDate = OrderDate.of(18);
+            OrderDate orderDate = OrderDate.of("18");
             String input = "티본스테이크-1,해산물파스타-2,아이스크림-2,제로콜라-1";
             Map<String, Integer> orderMenuInput = InputUtil.convertNameAndCount(input);
-            OrderMenu orderMenu = OrderMenu.of(orderMenuInput);
+            OrderMenu orderMenu = OrderMenu.of(input);
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
@@ -111,7 +110,7 @@ public class DiscountServiceTest {
         @DisplayName("[SUCCESS] 별이 있는 날이라면 1000원 할인 받는다")
         void should_discount_when_isStarDay() {
             // given
-            OrderDate orderDate = OrderDate.of(10);
+            OrderDate orderDate = OrderDate.of("10");
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
@@ -126,7 +125,7 @@ public class DiscountServiceTest {
         @DisplayName("[SUCCESS] 별이 없는 날이라면 할인 받지 않는다")
         void should_notDiscount_when_isNotStarDay() {
             // given
-            OrderDate orderDate = OrderDate.of(13);
+            OrderDate orderDate = OrderDate.of("13");
             BenefitHistory benefitHistory = BenefitHistory.of();
 
             // when
