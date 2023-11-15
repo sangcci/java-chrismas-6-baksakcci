@@ -1,0 +1,100 @@
+package christmas.view.output;
+
+import christmas.domain.benefit.BenefitHistory;
+import christmas.domain.constant.Benefit;
+import christmas.domain.constant.EventBadge;
+import christmas.domain.constant.Gift;
+import christmas.domain.constant.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderPrice;
+import christmas.view.output.constant.OutputFormat;
+import christmas.view.output.constant.OutputMessage;
+import java.util.Map;
+
+public class OutputView {
+
+    public void printTitle() {
+        System.out.println(OutputMessage.TITLE.getMessage());
+        System.out.println();
+    }
+
+    public void printBeforeApplyBenefit(OrderMenu orderMenu, OrderPrice orderPrice) {
+        printOrderMenu(orderMenu);
+        printTotalOrderPrice(orderPrice);
+    }
+
+    private void printOrderMenu(OrderMenu orderMenu) {
+        System.out.println(OutputMessage.ORDER_MENU.getMessage());
+        Map<Menu, Integer> orderMenuCount = orderMenu.getOrderMenuCount();
+        orderMenuCount.keySet()
+                .forEach(menu -> System.out.format(OutputFormat.ORDER_MENU.get(),
+                        menu.getName(),
+                        orderMenuCount.get(menu)));
+        System.out.println();
+    }
+
+    private void printTotalOrderPrice(OrderPrice orderPrice) {
+        System.out.println(OutputMessage.TOTAL_ORDER_PRICE_BEFORE_DISCOUNT.getMessage());
+        System.out.format(OutputFormat.WON.get(), orderPrice.getTotalPrice());
+        System.out.println();
+    }
+
+    public void printAfterApplyBenefit(BenefitHistory benefitHistory,
+            long totalBenefitPrice,
+            long totalPriceAfterDiscount,
+            EventBadge eventBadge) {
+        printGiftMenu(benefitHistory);
+        printBenefitHistory(benefitHistory);
+        printTotalBenefitPrice(totalBenefitPrice);
+        printTotalPriceAfterDiscount(totalPriceAfterDiscount);
+        printEventBadge(eventBadge);
+    }
+
+    private void printGiftMenu(BenefitHistory benefitHistory) {
+        Gift gift = benefitHistory.getGift();
+
+        System.out.println(OutputMessage.GIFT_MENU.getMessage());
+
+        if (gift == Gift.CHAMPAGNE) {
+            System.out.format(OutputFormat.ORDER_MENU.get(), benefitHistory.getGift().getName(), 1);
+        }
+        if (gift == Gift.NOTHING) {
+            System.out.format(OutputFormat.NOTHING.get());
+        }
+        System.out.println();
+    }
+
+    private void printBenefitHistory(BenefitHistory benefitHistory) {
+        Map<Benefit, Long> benefitDiscountPrice = benefitHistory.getBenefitDiscountPrice();
+
+        System.out.println(OutputMessage.BENEFIT_HISTORY.getMessage());
+        if (benefitDiscountPrice == null) {
+            System.out.print(OutputFormat.NOTHING.get());
+        }
+        if (benefitDiscountPrice != null) {
+            benefitDiscountPrice.keySet().stream()
+                    .filter(benefit -> benefitDiscountPrice.get(benefit) != 0L)
+                    .forEach(benefit -> System.out.format(OutputFormat.BENEFIT_PRICE.get(),
+                            benefit.getName(),
+                            benefitDiscountPrice.get(benefit)));
+        }
+        System.out.println();
+    }
+
+    private void printTotalBenefitPrice(long price) {
+        System.out.println(OutputMessage.TOTAL_BENEFIT_PRICE.getMessage());
+        System.out.format(OutputFormat.WON.get(), price);
+        System.out.println();
+    }
+
+    private void printTotalPriceAfterDiscount(long price) {
+        System.out.println(OutputMessage.PAYMENT_AFTER_DISCOUNT.getMessage());
+        System.out.format(OutputFormat.WON.get(), price);
+        System.out.println();
+    }
+
+    private void printEventBadge(EventBadge eventBadge) {
+        System.out.println(OutputMessage.DECEMBER_EVENT_BADGE.getMessage());
+        System.out.println(eventBadge.getName());
+    }
+}

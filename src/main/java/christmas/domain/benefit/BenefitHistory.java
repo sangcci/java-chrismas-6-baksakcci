@@ -1,0 +1,101 @@
+package christmas.domain.benefit;
+
+import christmas.domain.constant.Benefit;
+import christmas.domain.constant.EventBadge;
+import christmas.domain.constant.Gift;
+import christmas.domain.constant.Menu;
+import christmas.domain.order.OrderPrice;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class BenefitHistory {
+
+    private final Map<Benefit, Long> benefitDiscountPrice;
+    private Gift gift;
+    private EventBadge eventBadge;
+
+    // constructor
+    private BenefitHistory(Map<Benefit, Long> benefitDiscountPrice) {
+        this.benefitDiscountPrice = benefitDiscountPrice;
+        this.gift = Gift.NOTHING;
+        this.eventBadge = EventBadge.NOTHING;
+    }
+    
+    // static factory
+    public static BenefitHistory of() {
+        // init
+        EnumMap<Benefit, Long> benefitDiscountPrice = Arrays.stream(Benefit.values())
+                .collect(Collectors.toMap(
+                        benefit -> benefit,
+                        benefit -> 0L,
+                        (oldValue, newValue) -> newValue,
+                        () -> new EnumMap<>(Benefit.class)
+                ));
+        return new BenefitHistory(benefitDiscountPrice);
+    }
+
+    // utility
+    public void addGiftChampagne(OrderPrice orderPrice) {
+        if (hasQualificationForGift(orderPrice)) {
+            addDiscountPrice(Benefit.GIFT_EVENT, Menu.CHAMPAGNE.getPrice());
+            gift = Gift.CHAMPAGNE;
+        }
+    }
+
+    public void addDiscountPrice(Benefit benefit, long price) {
+        Long past = benefitDiscountPrice.get(benefit);
+        benefitDiscountPrice.replace(benefit, past + price);
+    }
+
+    public void addEventBadge() {
+        long totalDiscountPrice = getTotalBenefitPrice();
+        this.eventBadge = EventBadge.determineBadge(totalDiscountPrice);
+    }
+
+    public Long getBenefitDiscountEachPrice(Benefit benefit) {
+        return benefitDiscountPrice.get(benefit);
+    }
+
+    public long getTotalBenefitPrice() {
+        return benefitDiscountPrice.values().stream()
+                .mapToLong(p -> p)
+                .sum();
+    }
+
+    public long getTotalPriceAfterDiscount(OrderPrice orderPrice) {
+        long totalPrice = orderPrice.getTotalPrice();
+        long totalDiscountPrice = benefitDiscountPrice.keySet().stream()
+                .filter(benefit -> benefit != Benefit.GIFT_EVENT)
+                .mapToLong(benefitDiscountPrice::get)
+                .sum();
+        return totalPrice - totalDiscountPrice;
+    }
+
+    // validation
+    private boolean hasQualificationForGift(OrderPrice orderPrice) {
+        return orderPrice.isMoreThan120_000();
+    }
+
+    // getter
+    public Map<Benefit, Long> getBenefitDiscountPrice() {
+        if (isNothingBenefit()) {
+            return null;
+        }
+        return benefitDiscountPrice;
+    }
+
+    public boolean isNothingBenefit() {
+        return benefitDiscountPrice.keySet().stream()
+                .allMatch(benefit -> benefitDiscountPrice.get(benefit) == 0L);
+    }
+
+    public Gift getGift() {
+        return gift;
+    }
+
+    public EventBadge getEventBadge() {
+        return eventBadge;
+    }
+}
