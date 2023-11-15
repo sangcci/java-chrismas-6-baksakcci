@@ -9,8 +9,8 @@ public enum EventBadge {
     SANTA("산타", (price) -> price >= 20_000L),
     NOTHING("없음", (price) -> price >= 0 & price < 5_000L);
 
-    private String name;
-    private Predicate<Long> predicate;
+    private final String name;
+    private final Predicate<Long> predicate;
 
     // enum constructor
     EventBadge(String name, Predicate<Long> predicate) {

@@ -4,6 +4,7 @@ import christmas.domain.constant.Menu;
 import christmas.domain.constant.MenuType;
 import christmas.exception.IllegalMenuInputException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -117,6 +118,6 @@ public class OrderMenu {
 
     // getter
     public Map<Menu, Integer> getOrderMenuCount() {
-        return orderMenuCount;
+        return Collections.unmodifiableMap(orderMenuCount);
     }
 }

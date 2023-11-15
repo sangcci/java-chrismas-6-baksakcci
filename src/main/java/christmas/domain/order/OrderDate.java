@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public class OrderDate {
 
-    private int date;
+    private final int date;
 
     // constructor
     private OrderDate(String input) {

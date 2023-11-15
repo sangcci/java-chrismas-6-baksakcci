@@ -4,7 +4,7 @@ public enum Gift {
     CHAMPAGNE("샴페인"),
     NOTHING("없음");
 
-    private String name;
+    private final String name;
 
     Gift(String name) {
         this.name = name;

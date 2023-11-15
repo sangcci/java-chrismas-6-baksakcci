@@ -2,7 +2,7 @@ package christmas.domain.order;
 
 public class OrderPrice {
 
-    private long totalPrice;
+    private final long totalPrice;
 
     // constructor
     private OrderPrice(long totalPrice) {
